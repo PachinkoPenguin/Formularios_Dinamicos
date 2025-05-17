@@ -127,16 +127,3 @@ Colección: forms
 
 4. Abrir [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-## Implementación del Patrón Abstract Method
-
-Este proyecto implementa el patrón Abstract Method de la siguiente manera:
-
-1. `FormGeneratorService` es la interfaz abstracta con métodos para generar configuraciones de formularios
-2. `AdminFormGeneratorService` y `GuestFormGeneratorService` son implementaciones concretas para diferentes roles de usuario
-3. `FormGeneratorFactory` selecciona la implementación apropiada según el rol del usuario
-
-Este patrón permite:
-1. Encapsular la lógica de generación de formularios para cada rol de usuario
-2. Facilitar la extensión para agregar más roles de usuario en el futuro
-3. Proporcionar una interfaz consistente para que los clientes consuman configuraciones de formularios
-
