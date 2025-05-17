@@ -1,37 +1,41 @@
-# 🎓 Dynamic Forms System with Abstract Method Pattern
+# Formularios Dinámicos con Patrón Abstract Method
 
-> **Universidad XYZ - Software Design Patterns Course**  
-> Student: Your Name  
-> ID: Your Student ID  
-> Professor: Prof. Maria Rodriguez  
-> Submission Date: May 16, 2025
+## Descripción de la Actividad
 
-## 📝 Project Description
+En esta actividad, se implementará el patrón de diseño Abstract Method para actualizar dinámicamente un formulario en el frontend desarrollado en React, de acuerdo con el tipo de usuario (Admin o Guest). El backend estará construido con Spring Boot, y los datos de configuración de los formularios se obtendrán desde una base de datos en Firebase.
 
-This project implements a dynamic form system that demonstrates the **Abstract Method** design pattern in a practical application. The system shows different forms to users based on their roles (Admin or Guest) and connects to Firebase Firestore for dynamic form configuration storage.
+El objetivo es que, al detectar el tipo de usuario, el sistema cargue y muestre automáticamente un formulario con los campos específicos correspondientes:
 
-## 🏗️ Technical Overview
+- Para usuarios **Admin**: mostrar 3 campos específicos.
+- Para usuarios **Guest**: mostrar 3 campos distintos.
 
-- **Backend**: Spring Boot application implementing the Abstract Method pattern
-- **Frontend**: React application with dynamic form rendering
-- **Database**: Firebase Firestore for storing form configurations
-- **Pattern**: Abstract Method pattern for role-based form generation
+El patrón Abstract Method será utilizado en el backend para definir una interfaz genérica para la generación de formularios, permitiendo que las subclases concreten los campos requeridos según el tipo de usuario. Esto permitirá mantener una arquitectura flexible y extensible para futuros tipos de usuarios.
 
-## 🧩 Project Structure
+### Tareas específicas:
 
-- `/backend`: Spring Boot backend
-- `/frontend`: React frontend
+1. Crear una interfaz en el backend que defina los métodos para obtener los campos del formulario.
+2. Implementar subclases concretas para Admin y Guest que proporcionen sus respectivos campos.
+3. Conectar con Firebase para recuperar la configuración dinámica de los formularios.
+4. Exponer un endpoint REST en Spring Boot que retorne los campos del formulario según el tipo de usuario.
+5. En React, detectar el tipo de usuario al iniciar sesión y consumir el endpoint para construir el formulario dinámicamente.
 
-## 🔥 Setting Up Firebase
+Esta actividad fortalece el entendimiento del patrón de diseño Abstract Method, el desarrollo de formularios dinámicos basados en roles de usuario y la integración entre frontend y backend con servicios en la nube (Firebase).
 
-1. Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-2. Set up a Firestore Database
-3. Download your Firebase service account key and save it as `firebase-service-account.json` in the `backend/src/main/resources` directory
-4. Set up the following Firestore database structure:
+## Estructura del Proyecto
+
+- `/backend`: Backend Spring Boot con implementación del patrón Abstract Method
+- `/frontend`: Frontend React con renderizado dinámico de formularios
+
+## Configuración de Firebase
+
+1. Crear un proyecto en Firebase en https://console.firebase.google.com/
+2. Configurar Firestore Database
+3. Reemplazar el archivo `firebase-service-account.json` con tu clave de cuenta de servicio de Firebase
+4. Utilizar la siguiente estructura de base de datos en Firestore:
 
 ```
-Collection: forms
-   Document: admin
+Colección: forms
+   Documento: admin
       formTitle: "Admin Management Form"
       formDescription: "Form for administrative tasks and project management"
       fields: [
@@ -58,7 +62,7 @@ Collection: forms
          }
       ]
 
-   Document: guest
+   Documento: guest
       formTitle: "Guest Registration Form"
       formDescription: "Please provide your information to proceed as a guest"
       fields: [
@@ -86,92 +90,53 @@ Collection: forms
       ]
 ```
 
-## 🚀 Running the Project
+## Instrucciones para Ejecutar el Proyecto
 
-### Backend Setup
+### Ejecutar el Backend
 
-1. Navigate to the backend directory:
-   ```bash
+1. Navegar al directorio del backend:
+   ```
    cd backend
    ```
 
-2. Run the Spring Boot application:
-   ```bash
+2. Ejecutar la aplicación Spring Boot:
+   ```
    ./mvnw spring-boot:run
    ```
-   Or with Maven installed:
-   ```bash
+   O si tienes Maven instalado:
+   ```
    mvn spring-boot:run
    ```
 
-### Frontend Setup
+### Ejecutar el Frontend
 
-1. Navigate to the frontend directory:
-   ```bash
+1. Navegar al directorio del frontend:
+   ```
    cd frontend
    ```
 
-2. Install dependencies:
-   ```bash
+2. Instalar dependencias:
+   ```
    npm install
    ```
 
-3. Start the development server:
-   ```bash
+3. Iniciar el servidor de desarrollo:
+   ```
    npm start
    ```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Abrir [http://localhost:3000](http://localhost:3000) en tu navegador.
 
-## 🧠 Abstract Method Pattern Explanation
+## Implementación del Patrón Abstract Method
 
-The project implements the **Abstract Method** pattern, which allows:
+Este proyecto implementa el patrón Abstract Method de la siguiente manera:
 
-- **Separation of interface from implementation**: `FormGeneratorService` defines the interface, while concrete classes implement specific behaviors
-- **Role-based customization**: Different form structures for different user roles
-- **Dynamic form generation**: Forms can be configured without changing the code
+1. `FormGeneratorService` es la interfaz abstracta con métodos para generar configuraciones de formularios
+2. `AdminFormGeneratorService` y `GuestFormGeneratorService` son implementaciones concretas para diferentes roles de usuario
+3. `FormGeneratorFactory` selecciona la implementación apropiada según el rol del usuario
 
-### Pattern Implementation
+Este patrón permite:
+1. Encapsular la lógica de generación de formularios para cada rol de usuario
+2. Facilitar la extensión para agregar más roles de usuario en el futuro
+3. Proporcionar una interfaz consistente para que los clientes consuman configuraciones de formularios
 
-1. `FormGeneratorService` - Abstract interface defining the contract for form generation
-2. `AdminFormGeneratorService` and `GuestFormGeneratorService` - Concrete implementations for different user roles
-3. `FormGeneratorFactory` - Factory class that selects the appropriate implementation based on the user role
-
-## 📱 Application Demo
-
-### Admin Form
-The admin form provides fields for project management, including project name, budget allocation, and access level selection.
-
-### Guest Form
-The guest form collects basic information from visitors, including name, email, and reason for visit.
-
-## ✨ Features
-
-- Dynamic form generation based on user role
-- Firebase integration for form configuration storage
-- Responsive UI with Material UI components
-- Form validation
-- Abstract Method pattern implementation
-
-## 🛠️ Technologies Used
-
-- **Backend**: Java, Spring Boot
-- **Frontend**: React, Material UI
-- **Database**: Firebase Firestore
-- **Build Tools**: Maven, npm
-
-## 📚 Learning Outcomes
-
-This project demonstrates my understanding of:
-- Design patterns, specifically the Abstract Method pattern
-- Full-stack development with Spring Boot and React
-- API integration with Firebase
-- Dynamic UI generation
-- Software architecture principles
-
-## 🔮 Future Improvements
-
-- Add authentication with Firebase Auth
-- Implement form submissions storage
-- Add more user roles and form types
-- Create a form builder interface for admins
